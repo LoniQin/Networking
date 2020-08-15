@@ -1,3 +1,3 @@
 # Networking
 
-This networking libaray can make sending request and decoding resonse very easy.
+This networking libaray can make sending request and decoding response very easy.
