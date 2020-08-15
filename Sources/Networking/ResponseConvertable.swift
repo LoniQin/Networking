@@ -6,7 +6,7 @@
 //
 import Foundation
 public protocol ResponseConvertable {
-    static func getItem(with data: Data) throws -> Self
+    static func toResponse(with data: Data) throws -> Self
 }
 
 public protocol JSONCodable: Codable, ResponseConvertable {
@@ -15,7 +15,7 @@ public protocol JSONCodable: Codable, ResponseConvertable {
 
 extension String: ResponseConvertable {
     
-    public static func getItem(with data: Data) throws -> String {
+    public static func toResponse(with data: Data) throws -> String {
         guard let string = String(data: data, encoding: .utf8) else {
             throw NetworkingError.codingError
         }
@@ -24,13 +24,13 @@ extension String: ResponseConvertable {
 }
 
 extension Data: ResponseConvertable {
-    public static func getItem(with data: Data) throws -> Data {
+    public static func toResponse(with data: Data) throws -> Data {
         return data
     }
 }
 
 extension JSONCodable  {
-    public static func getItem(with data: Data) throws -> JSONCodable {
+    public static func toResponse(with data: Data) throws -> JSONCodable {
         try JSONDecoder().decode(Self.self, from: data)
     }
 }

@@ -18,6 +18,12 @@ extension String: RequestConvertable {
     }
 }
 
+extension URL: RequestConvertable {
+    public func toURLRequest() throws -> URLRequest {
+        return URLRequest(url: self, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 30)
+    }
+}
+
 extension URLRequest: RequestConvertable {
     public func toURLRequest() throws -> URLRequest {
         self
