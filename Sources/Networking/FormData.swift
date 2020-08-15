@@ -6,6 +6,10 @@
 //
 import Foundation
 
+public protocol StringConvetable {
+    func toString() -> String
+}
+
 public struct FormData: RequestConvertable  {
     
     public enum Value {
@@ -26,7 +30,7 @@ public struct FormData: RequestConvertable  {
     
     public let domain: String
     
-    public var paths: [String]
+    public var paths: [StringConvetable]
     
     public var items: [Item]
     
@@ -35,7 +39,7 @@ public struct FormData: RequestConvertable  {
     static let seperator = "\r\n"
     
     public func toURLRequest() throws -> URLRequest {
-        let components = [domain] + paths
+        let components = [domain] + paths.map({$0.toString()})
         guard let url = URL(string: components.joined(separator: "/")) else {
             throw NetworkingError.invalidRequest
         }
