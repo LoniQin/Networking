@@ -34,7 +34,7 @@ public struct FormData: RequestConvertable  {
     static let seperator = "\r\n"
     
     public func toURLRequest() throws -> URLRequest {
-        var components = [domain] + paths
+        let components = [domain] + paths
         guard let url = URL(string: components.joined(separator: "/")) else {
             throw NetworkingError.invalidRequest
         }

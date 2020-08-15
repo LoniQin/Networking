@@ -7,8 +7,13 @@
 
 import Foundation
 public enum NetworkingError: Error {
+    
     case unknownError
+    
     case codingError
+    
     case wrongURL
+    
     case invalidRequest
+    
 }

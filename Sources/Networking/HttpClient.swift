@@ -43,8 +43,10 @@ public enum Result<T> {
 }
 
 public class HttpClient: Requestable {
+    
     public let session: URLSession
-    init(session: URLSession = .shared) {
+    
+    public init(session: URLSession = .shared) {
         self.session = session
     }
     
