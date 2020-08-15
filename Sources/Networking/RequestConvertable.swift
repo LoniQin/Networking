@@ -21,6 +21,6 @@ extension String: RequestConvertable {
 
 extension URLRequest: RequestConvertable {
     public func toURLRequest() throws -> URLRequest {
-        return self
+        self
     }
 }
