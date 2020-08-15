@@ -3,7 +3,6 @@
 //  Prototypes
 //
 //  Created by gzuser on 13/1/2020.
-//  Copyright © 2020 com.gtomato.enterprice. All rights reserved.
 //
 import Foundation
 

@@ -3,7 +3,6 @@
 //  Prototypes
 //
 //  Created by lonnie on 2020/1/19.
-//  Copyright © 2020 com.gtomato.enterprice. All rights reserved.
 //
 import Foundation
 public protocol ResponseConvertable {

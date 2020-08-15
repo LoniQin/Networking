@@ -3,7 +3,6 @@
 //  Prototypes
 //
 //  Created by lonnie on 2020/2/9.
-//  Copyright © 2020 com.gtomato.enterprice. All rights reserved.
 //
 import Foundation
 public struct FormData: RequestConvertable  {
