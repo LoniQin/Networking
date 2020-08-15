@@ -26,6 +26,11 @@ public struct FormData: RequestConvertable  {
         
         public let value: Value
         
+        public init(key: String , value: Value) {
+            self.key = key
+            self.value = value
+        }
+        
     }
     
     public let domain: String
@@ -33,6 +38,12 @@ public struct FormData: RequestConvertable  {
     public var paths: [StringConvetable]
     
     public var items: [Item]
+    
+    public init(domain: String, paths: [StringConvetable], items: [Item]) {
+        self.domain = domain
+        self.paths = paths
+        self.items = items
+    }
     
     static let kContentType = "Content-Type"
     
