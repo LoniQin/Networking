@@ -5,6 +5,7 @@
 //  Created by lonnie on 2020/1/19.
 //
 import Foundation
+
 public protocol ResponseConvertable {
     static func toResponse(with data: Data) throws -> Self
 }

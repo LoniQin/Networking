@@ -5,6 +5,7 @@
 //  Created by lonnie on 2020/2/9.
 //
 import Foundation
+
 public struct FormData: RequestConvertable  {
     
     public enum Value {
