@@ -7,11 +7,15 @@
 
 import Foundation
 public protocol StringConvetable {
+    
     func toString() -> String
+    
 }
 
 extension String: StringConvetable {
+    
     public func toString() -> String {
         return self
     }
+    
 }

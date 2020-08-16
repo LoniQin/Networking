@@ -6,11 +6,13 @@
 //
 
 import Foundation
+
 public protocol JSONCodable: Codable, ResponseConvertable, DataConvertable {
     
 }
 
 extension JSONCodable  {
+    
     public static func toResponse(with data: Data) throws -> Self {
         try JSONDecoder().decode(Self.self, from: data)
     }
@@ -18,4 +20,5 @@ extension JSONCodable  {
     public func toData() throws -> Data {
         try JSONEncoder().encode(self)
     }
+    
 }

@@ -1,13 +1,15 @@
 //
 //  ResponseConvertable.swift
-//  Prototypes
+//  
 //
 //  Created by lonnie on 2020/1/19.
 //
 import Foundation
 
 public protocol ResponseConvertable {
+    
     static func toResponse(with data: Data) throws -> Self
+    
 }
 
 
@@ -23,9 +25,11 @@ extension String: ResponseConvertable {
 }
 
 extension Data: ResponseConvertable {
+    
     public static func toResponse(with data: Data) throws -> Data {
-        return data
+        data
     }
+    
 }
 
 

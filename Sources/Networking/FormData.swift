@@ -1,6 +1,6 @@
 //
 //  FormData.swift
-//  Prototypes
+//
 //
 //  Created by lonnie on 2020/2/9.
 //
@@ -72,5 +72,6 @@ public struct FormData: RequestConvertable  {
         req.httpBody = data
         return req
     }
+    
 }
 

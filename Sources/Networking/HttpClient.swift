@@ -1,13 +1,15 @@
 //
 //  NetworkManager.swift
-//  Prototypes
+//  
 //
 //  Created by Lonnie on 13/1/2020.
 //
 import Foundation
 
 public protocol Requestable {
+    
     func send<T: ResponseConvertable>(_ request: RequestConvertable, completion: @escaping (Result<T, Error>)->Void)
+    
 }
 
 public enum HttpMethod: String {
@@ -80,4 +82,5 @@ public class HttpClient: Requestable {
             completion(result)
         }
     }
+    
 }
