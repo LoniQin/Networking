@@ -12,8 +12,10 @@ dependencies: [
 ]
 ```
  In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add https://github.com/LoniQin/Networking.
+ 
+ ## How to use
  The two important protocol are `RequestConvertable`, `ResponseConvertable`. Namely objects and structs that confirms to `RequestConvertable` can convert to URLRequest type, and that confirms to `ResponseConvertable` can convert from URLResponse to that specific type. 
- ## RequestConvertable and ResponseConvertable
+ ### RequestConvertable and ResponseConvertable
  RequestConvertable can convert an object to a URL, and ResponseConvertable can convert a response Data to types that confirms to it.
  ```
  public protocol RequestConvertable {
@@ -63,7 +65,7 @@ HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md
 ```
 
 You can also define your own type of data to confirm to `JSONCodable`, which inherits both from Codable and ResponseConvertable.
-```
+```swift
 struct User: JSONCodable {
     let name: String
 }
