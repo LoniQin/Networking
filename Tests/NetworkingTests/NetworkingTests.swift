@@ -36,6 +36,27 @@ final class NetworkingTests: XCTestCase {
         }
         
     }
+    
+    func testHttpClientWithHttpRequest() {
+        
+        let request = HttpRequest<None, None>(domain: "https://github.com",
+                                              paths: ["LoniQin", "Crypto", "blob", "master", "README.md"])
+        XCTAssertEqual(try request.toURLRequest().url, try "https://github.com/LoniQin/Crypto/blob/master/README.md".toURLRequest().url)
+        let expectation = self.expectation(description: "test request")
+        HttpClient.default.send(request) { (result: Result<String, Error>) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let data):
+                print(data)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: 30) { (error) in
+            
+        }
+        
+    }
 
     static var allTests = [
         ("testRequest1", testSendAndReceiveRequest1),

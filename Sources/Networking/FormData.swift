@@ -6,10 +6,6 @@
 //
 import Foundation
 
-public protocol StringConvetable {
-    func toString() -> String
-}
-
 public struct FormData: RequestConvertable  {
     
     public enum Value {
