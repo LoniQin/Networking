@@ -57,6 +57,24 @@ final class NetworkingTests: XCTestCase {
         }
         
     }
+    
+    func testJSONCodable() {
+        
+        struct User: JSONCodable {
+            let name: String
+        }
+        
+        let data = """
+        
+        """.data(using: .utf8)!
+        do {
+            let user = try User.toResponse(with: data)
+            print(user)
+        } catch let error {
+            print(error)
+        }
+        
+    }
 
     static var allTests = [
         ("testRequest1", testSendAndReceiveRequest1),
