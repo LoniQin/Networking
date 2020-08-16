@@ -12,7 +12,10 @@ dependencies: [
 ]
 ```
  In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add https://github.com/LoniQin/Networking.
- 
+ ![](steps/1.png)
+ ![](steps/2.png)
+ ![](steps/3.png)
+ ![](steps/4.png)
  ## How to use
  The two important protocol are `RequestConvertable`, `ResponseConvertable`. Namely objects and structs that confirms to `RequestConvertable` can convert to URLRequest type, and that confirms to `ResponseConvertable` can convert from URLResponse to that specific type. 
  ### `RequestConvertable` and `ResponseConvertable`
