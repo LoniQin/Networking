@@ -10,9 +10,7 @@ public protocol ResponseConvertable {
     static func toResponse(with data: Data) throws -> Self
 }
 
-public protocol JSONCodable: Codable, ResponseConvertable, DataConvertable {
-    
-}
+
 
 extension String: ResponseConvertable {
     
@@ -30,12 +28,4 @@ extension Data: ResponseConvertable {
     }
 }
 
-extension JSONCodable  {
-    public static func toResponse(with data: Data) throws -> Self {
-        try JSONDecoder().decode(Self.self, from: data)
-    }
-    
-    public func toData() throws -> Data {
-        try JSONEncoder().encode(self)
-    }
-}
+

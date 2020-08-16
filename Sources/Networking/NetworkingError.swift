@@ -1,5 +1,5 @@
 //
-//  Error.swift
+//  NetworkingError.swift
 //  
 //
 //  Created by lonnie on 2020/8/15.
