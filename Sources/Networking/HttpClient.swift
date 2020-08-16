@@ -55,13 +55,11 @@ public class HttpClient: Requestable {
             let task = session.dataTask(with: try request.toURLRequest()) { [weak self] data, response, error in
                 self?.tasks.removeValue(forKey: requestID)
                 do {
-                    if let error = error {
-                        completion(.failure(error))
-                    } else if let data = data {
+                    if let data = data {
                         let response = try T.toResponse(with: data)
                         completion(.success(response))
                     } else {
-                        completion(.failure(NetworkingError.unknownError))
+                        completion(.failure(error ?? NetworkingError.unknownError))
                     }
                 } catch let error {
                     completion(.failure(error))

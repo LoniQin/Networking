@@ -7,10 +7,6 @@
 
 import Foundation
 
-public struct None: Codable {
-    
-}
-
 public struct HttpRequest: RequestConvertable {
     
     public let domain: StringConvetable
