@@ -7,7 +7,7 @@
 import Foundation
 
 public protocol Requestable {
-    func send<T: ResponseConvertable>(_ request: RequestConvertable, completion: @escaping (Result<T>)->Void)
+    func send<T: ResponseConvertable>(_ request: RequestConvertable, completion: @escaping (Result<T, Error>)->Void)
 }
 
 public enum HttpMethod: String {
@@ -34,15 +34,9 @@ public enum ContentType: String {
     
 }
 
-public enum Result<T> {
-    
-    case success(T)
-    
-    case failure(Error)
-    
-}
-
 public class HttpClient: Requestable {
+    
+    public static let `default` = HttpClient()
     
     public let session: URLSession
     
@@ -54,7 +48,7 @@ public class HttpClient: Requestable {
 
     public func send<T: ResponseConvertable>(
         _ request: RequestConvertable,
-        completion: @escaping (Result<T>)->Void
+        completion: @escaping (Result<T, Error>)->Void
     ) {
         let requestID = UUID()
         do {

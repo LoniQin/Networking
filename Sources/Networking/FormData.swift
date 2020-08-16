@@ -33,13 +33,13 @@ public struct FormData: RequestConvertable  {
         
     }
     
-    public let domain: String
+    public let domain: StringConvetable
     
     public var paths: [StringConvetable]
     
     public var items: [Item]
     
-    public init(domain: String, paths: [StringConvetable], items: [Item]) {
+    public init(domain: StringConvetable, paths: [StringConvetable], items: [Item]) {
         self.domain = domain
         self.paths = paths
         self.items = items
@@ -50,7 +50,7 @@ public struct FormData: RequestConvertable  {
     static let seperator = "\r\n"
     
     public func toURLRequest() throws -> URLRequest {
-        let components = [domain] + paths.map({$0.toString()})
+        let components = [domain.toString()] + paths.map({$0.toString()})
         guard let url = URL(string: components.joined(separator: "/")) else {
             throw NetworkingError.invalidRequest
         }
