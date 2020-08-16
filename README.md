@@ -1,6 +1,6 @@
 # Networking
 
-This networking libaray can make sending request and decoding response very easy.
+This networking libaray can make sending http request and decoding response very easy.
 
 
 ## Installation with Swift Package Manager
@@ -17,7 +17,8 @@ dependencies: [
  The two important protocol are `RequestConvertable`, `ResponseConvertable`. Namely objects and structs that confirms to `RequestConvertable` can convert to URLRequest type, and that confirms to `ResponseConvertable` can convert from URLResponse to that specific type. 
  ### `RequestConvertable` and `ResponseConvertable`
  `RequestConvertable` can convert an object to a `URL`, and `ResponseConvertable` can convert a response Data to types that confirms to it.
- ```
+ ```swift
+ 
  public protocol RequestConvertable {
      func toURLRequest() throws -> URLRequest
  }
@@ -51,8 +52,8 @@ HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md
 }
 ```
 
-You can use `URL` and `URLRequest` object to start a http request:
-```
+You can use `URL` and `URLRequest` object to start a request:
+```swift
 HttpClient.default.send(URL(string: "https://github.com/LoniQin/Crypto/blob/master/README.md")!) { (result: Result<Data, Error>) in
     switch result {
     case .failure(let error):
@@ -84,7 +85,7 @@ HttpClient.default.send(request) { (result: Result<String, Error>) in
 }
 ```
 
-You can define your own type to confirm to `JSONCodable`, to decode JSON data from web server.
+You can define your own type that confirms to `JSONCodable`, to decode JSON data from web server.
 
 ```swift
 struct User: JSONCodable {
