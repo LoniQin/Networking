@@ -40,8 +40,11 @@ public class HttpClient: Requestable {
     
     public let session: URLSession
     
-    public init(session: URLSession = .shared) {
+    public let queue: DispatchQueue
+    
+    public init(session: URLSession = .shared, queue: DispatchQueue = .main) {
         self.session = session
+        self.queue = queue
     }
     
     var tasks: [UUID: URLSessionTask] = [:]
@@ -57,18 +60,24 @@ public class HttpClient: Requestable {
                 do {
                     if let data = data {
                         let response = try T.toResponse(with: data)
-                        completion(.success(response))
+                        self?.dispatch(completion: completion, result: .success(response))
                     } else {
-                        completion(.failure(error ?? NetworkingError.unknownError))
+                        self?.dispatch(completion: completion, result: .failure(error ?? NetworkingError.unknownError))
                     }
                 } catch let error {
-                    completion(.failure(error))
+                    self?.dispatch(completion: completion, result: .failure(error))
                 }
             }
             task.resume()
             tasks[requestID] = task
         } catch let error {
             completion(.failure(error))
+        }
+    }
+    
+    private func dispatch<T>(completion: @escaping (Result<T, Error>)->Void, result: Result<T, Error>) {
+        queue.async {
+            completion(result)
         }
     }
 }
