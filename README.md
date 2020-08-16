@@ -73,8 +73,7 @@ HttpClient.default.send(URLRequest(url: URL(string: "https://github.com/LoniQin/
 
 You may use `HttpRequest` to start a request:
 ```swift
-let request = HttpRequest<None, None>(domain: "https://github.com",
-                                      paths: ["LoniQin", "Crypto", "blob", "master", "README.md"])
+let request = HttpRequest(domain: "https://github.com", paths: ["LoniQin", "Crypto", "blob", "master", "README.md"], method: .get)
 HttpClient.default.send(request) { (result: Result<String, Error>) in
     switch result {
     case .failure(let error):

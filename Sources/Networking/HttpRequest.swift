@@ -11,7 +11,7 @@ public struct None: Codable {
     
 }
 
-public struct HttpRequest<Q: Codable, J: Codable>: RequestConvertable {
+public struct HttpRequest: RequestConvertable {
     
     public let domain: StringConvetable
     
@@ -19,23 +19,23 @@ public struct HttpRequest<Q: Codable, J: Codable>: RequestConvertable {
     
     public let method: HttpMethod
     
-    public let queryParams: Q?
+    public let queryParams: [String: String]?
     
-    public let jsonParams: J?
+    public let body: DataConvertable?
     
     public let headerParams: [String: String]
     
     init(domain: StringConvetable,
          paths: [StringConvetable] = [],
          method: HttpMethod = .get,
-         queryParams: Q? = nil,
-         jsonParams: J? = nil,
+         queryParams: [String: String] = [:],
+         body: DataConvertable? = nil,
          headerParams: [String: String] = [:]) {
         self.domain = domain
         self.paths = paths
         self.method = method
         self.queryParams = queryParams
-        self.jsonParams = jsonParams
+        self.body = body
         self.headerParams = headerParams
     }
     
@@ -52,7 +52,7 @@ public struct HttpRequest<Q: Codable, J: Codable>: RequestConvertable {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue.uppercased()
         if method == .post {
-            request.httpBody = try JSONEncoder().encode(jsonParams)
+            request.httpBody = try body?.toData()
         }
         request.allHTTPHeaderFields = headerParams
         return request
