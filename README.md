@@ -85,7 +85,7 @@ HttpClient.default.send(request) { (result: Result<String, Error>) in
 }
 ```
 
-You don't want to just get a `Data` as result, You can define your own type to confirm to `JSONCodable`, to decode JSON data from web server.
+You can define your own type to confirm to `JSONCodable`, to decode JSON data from web server.
 
 ```swift
 struct User: JSONCodable {
@@ -101,3 +101,4 @@ HttpClient.default.send("https://raw.githubusercontent.com/LoniQin/Networking/ma
     }
 }
 ```
+**Of course, you can customize your own request and response data by confirming to `RequestConvertable` and `RequestConvertable`!.**
