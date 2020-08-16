@@ -31,14 +31,15 @@ dependencies: [
  * `URL`
  * `URLRequest`
  * `FormData`
+ * `HttpRequest`
  
  ### Types confirms to `ResponseConvertable`
- * String
- * Data
- * URLRequest
- * JSONCodable
+ * `String`
+ * `Data`
+ * `URLRequest`
+ * `JSONCodable`
  
- For example, when I request contents from this README.md using this link, it can convert to a `URLRequest`. When the request is completed
+ You can request this README.md using this string that represets a link:
 ```swift
 HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<Data,Error>) in
     switch result {
@@ -70,14 +71,11 @@ HttpClient.default.send(URLRequest(url: URL(string: "https://github.com/LoniQin/
 }
 ```
 
-You don't want to just get a `Data `as result, You can define your own type to confirm to `JSONCodable`, to decode JSON data from web server.
-
+You may use `HttpRequest` to start a request:
 ```swift
-struct User: JSONCodable {
-    let name: String
-}
-
-HttpClient.default.send("https://raw.githubusercontent.com/LoniQin/Networking/master/Tests/data/mockUser.json") { (result: Result<User, Error>) in
+let request = HttpRequest<None, None>(domain: "https://github.com",
+                                      paths: ["LoniQin", "Crypto", "blob", "master", "README.md"])
+HttpClient.default.send(request) { (result: Result<String, Error>) in
     switch result {
     case .failure(let error):
         print(error)
@@ -87,11 +85,14 @@ HttpClient.default.send("https://raw.githubusercontent.com/LoniQin/Networking/ma
 }
 ```
 
-You may use `HttpRequest` to start a request:
+You don't want to just get a `Data` as result, You can define your own type to confirm to `JSONCodable`, to decode JSON data from web server.
+
 ```swift
-let request = HttpRequest<None, None>(domain: "https://github.com",
-                                      paths: ["LoniQin", "Crypto", "blob", "master", "README.md"])
-HttpClient.default.send(request) { (result: Result<String, Error>) in
+struct User: JSONCodable {
+    let name: String
+}
+
+HttpClient.default.send("https://raw.githubusercontent.com/LoniQin/Networking/master/Tests/data/mockUser.json") { (result: Result<User, Error>) in
     switch result {
     case .failure(let error):
         print(error)
