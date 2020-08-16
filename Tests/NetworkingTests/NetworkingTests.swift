@@ -5,8 +5,7 @@ final class NetworkingTests: XCTestCase {
 
     func testSendAndReceiveRequest1() {
         let expectation = self.expectation(description: "test request")
-        let client = HttpClient()
-        client.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<Data,Error>) in
+        HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<Data,Error>) in
             switch result {
             case .failure(let error):
                 print(error)
@@ -23,8 +22,7 @@ final class NetworkingTests: XCTestCase {
     
     func testSendAndReceiveRequest2() {
         let expectation = self.expectation(description: "test request")
-        let client = HttpClient()
-        client.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<String, Error>) in
+        HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<String, Error>) in
             switch result {
             case .failure(let error):
                 print(error)
