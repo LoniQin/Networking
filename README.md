@@ -1,6 +1,6 @@
 # Networking
 
-This networking libaray can make sending request and decoding response very easy.
+This networking libaray can make sending http request and decoding response very easy.
 
 
 ## Installation with Swift Package Manager
@@ -52,7 +52,7 @@ HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md
 }
 ```
 
-You can use `URL` and `URLRequest` object to start a http request:
+You can use `URL` and `URLRequest` object to start a request:
 ```swift
 HttpClient.default.send(URL(string: "https://github.com/LoniQin/Crypto/blob/master/README.md")!) { (result: Result<Data, Error>) in
     switch result {
