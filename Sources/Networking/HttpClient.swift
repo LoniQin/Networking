@@ -71,7 +71,7 @@ public class HttpClient: Requestable {
             task.resume()
             tasks[requestID] = task
         } catch let error {
-            completion(.failure(error))
+            dispatch(completion: completion, result: .failure(error))
         }
     }
     
