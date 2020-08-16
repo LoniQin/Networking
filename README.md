@@ -51,10 +51,30 @@ HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md
 }
 ```
 
-I can get a String in this way:
+You can get a String in this way:
 
 ```swift
 HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<String,Error>) in
+    switch result {
+    case .failure(let error):
+        print(error)
+    case .success(let data):
+        print(data)
+    }
+}
+```
+
+You can use URL and URLRequest object to start a http request:
+```
+HttpClient.default.send(URLRequest(url: URL(string: "https://github.com/LoniQin/Crypto/blob/master/README.md")!)) { (result: Result<String, Error>) in
+    switch result {
+    case .failure(let error):
+        print(error)
+    case .success(let data):
+        print(data)
+    }
+}
+HttpClient.default.send(URLRequest(url: URL(string: "https://github.com/LoniQin/Crypto/blob/master/README.md")!)) { (result: Result<String, Error>) in
     switch result {
     case .failure(let error):
         print(error)

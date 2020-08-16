@@ -58,6 +58,40 @@ final class NetworkingTests: XCTestCase {
         
     }
     
+    func testHttpClientWithURLAndURLRequest() {
+        let expectation = self.expectation(description: "test request")
+        HttpClient.default.send(URLRequest(url: URL(string: "https://github.com/LoniQin/Crypto/blob/master/README.md")!)) { (result: Result<String, Error>) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let data):
+                print(data)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: 30) { (error) in
+            
+        }
+        
+    }
+    
+    func testHttpClientWithURL() {
+        let expectation = self.expectation(description: "test request")
+        HttpClient.default.send(URL(string: "https://github.com/LoniQin/Crypto/blob/master/README.md")!) { (result: Result<String, Error>) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let data):
+                print(data)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: 30) { (error) in
+            
+        }
+        
+    }
+    
     func testJSONCodable() {
         
         struct User: JSONCodable {
