@@ -2,8 +2,13 @@
 
 This networking libaray can make sending http request and decoding response very easy.
 
+# Functions
+- [x] Http Client
+- [ ] UDP Client
+- [ ] WebSocket Client
 
-## Installation with Swift Package Manager
+## Installation
+### Swift Package Manager
 
 Once you have your Swift package set up, you add this code to your Package.swift. 
 ```swift
