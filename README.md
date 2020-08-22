@@ -2,6 +2,10 @@
 
 This networking libaray can make sending http request and decoding response very easy.
 
+# Functions
+- [x] Http Client
+- [ ] UDP Client
+- [ ] WebSocket Client
 
 ## Installation with Swift Package Manager
 
