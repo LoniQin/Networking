@@ -12,8 +12,6 @@ public protocol ResponseConvertable {
     
 }
 
-
-
 extension String: ResponseConvertable {
     
     public static func toResponse(with data: Data) throws -> String {
@@ -32,4 +30,15 @@ extension Data: ResponseConvertable {
     
 }
 
+#if canImport(UIKit)
+import UIKit
+extension UIImage: ResponseConvertable {
+    public static func toResponse(with data: Data) throws -> Self {
+        if let image = UIImage(data: data) {
+            return image as! Self
+        }
+        throw NetworkingError.codingError
+    }
+}
+#endif
 
