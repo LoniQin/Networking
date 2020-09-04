@@ -108,6 +108,32 @@ final class NetworkingTests: XCTestCase {
         }
         
     }
+    
+    func testGetMockUser() {
+        let expectation = self.expectation(description: "test request")
+        var paths = #file.components(separatedBy: "/")
+        paths.removeLast(2)
+        paths.append(contentsOf: ["data", "mockUser.json"])
+        let filePath = paths.joined(separator: "/")
+        
+        struct User: JSONCodable {
+            let id: Int
+            let name: String
+        }
+        HttpClient.default.send(URL(fileURLWithPath: filePath)) { (result: Result<User, Error>) in
+            do {
+                let result = try result.get()
+                XCTAssert(result.id == 1)
+                XCTAssert(result.name == "Jack")
+                expectation.fulfill()
+            } catch let error {
+                XCTFail(error.localizedDescription)
+            }
+        }
+        self.waitForExpectations(timeout: 30) { (error) in
+            
+        }
+    }
 
     static var allTests = [
         ("testRequest1", testSendAndReceiveRequest1),

@@ -31,7 +31,9 @@ extension Data: ResponseConvertable {
 }
 
 #if canImport(UIKit)
+
 import UIKit
+
 extension UIImage: ResponseConvertable {
     public static func toResponse(with data: Data) throws -> Self {
         if let image = UIImage(data: data) {
@@ -40,5 +42,6 @@ extension UIImage: ResponseConvertable {
         throw NetworkingError.codingError
     }
 }
+
 #endif
 
