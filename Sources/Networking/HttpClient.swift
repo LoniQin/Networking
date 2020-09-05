@@ -6,36 +6,6 @@
 //
 import Foundation
 
-public protocol Requestable {
-    
-    func send<T: ResponseConvertable>(_ request: RequestConvertable, completion: @escaping (Result<T, Error>)->Void)
-    
-}
-
-public enum HttpMethod: String {
-    
-    case get
-    
-    case post
-    
-    case put
-    
-    case delete
-    
-}
-
-public enum ContentType: String {
-    
-    case json = "application/json"
-    
-    case multipart_Form = "multipart/form-data"
-    
-    case text_plain = "text/plain"
-    
-    case octet_stream = "application/octet-stream"
-    
-}
-
 public class HttpClient: Requestable {
     
     public static let `default` = HttpClient()

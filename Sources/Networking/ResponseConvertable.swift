@@ -36,8 +36,8 @@ import UIKit
 
 extension UIImage: ResponseConvertable {
     public static func toResponse(with data: Data) throws -> Self {
-        if let image = UIImage(data: data) {
-            return image as! Self
+        if let image = Self(data: data) {
+            return image
         }
         throw NetworkingError.codingError
     }

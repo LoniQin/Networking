@@ -10,8 +10,7 @@ extension String {
     func utf8Data() throws -> Data {
         if let data = self.data(using: .utf8) {
             return data
-        } else {
-            throw NetworkingError.codingError
         }
+        throw NetworkingError.codingError
     }
 }

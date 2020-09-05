@@ -48,8 +48,8 @@ public struct HttpRequest: RequestConvertable {
         guard let url = URL(string: urlString) else { throw NetworkingError.invalidRequest }
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue.uppercased()
-        if method == .post {
-            request.httpBody = try body?.toData()
+        if let body = body {
+            request.httpBody = try body.toData()
         }
         request.allHTTPHeaderFields = header
         return request
