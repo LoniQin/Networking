@@ -1,7 +1,34 @@
 import XCTest
 @testable import Networking
+#if canImport(UIKit)
+import UIKit
+#endif
+
+func / (lhs: String, rhs: String) -> String {
+    lhs  + "/" + rhs
+}
 
 final class NetworkingTests: XCTestCase {
+    
+    func testPath() -> String {
+        var components = #file.components(separatedBy: "/")
+        components.removeLast(2)
+        return components.joined(separator: "/")
+    }
+
+    func dataPath() -> String {
+        testPath() / "data"
+    }
+    
+    func expectation(title: String = #function, timeout: TimeInterval = 30, block: (XCTestExpectation) -> Void) {
+        let expectation = self.expectation(description: title)
+        block(expectation)
+        self.waitForExpectations(timeout: 30) { (error) in
+            if error != nil {
+                XCTFail(error.debugDescription)
+            }
+        }
+    }
 
     struct User: JSONCodable {
         let id: Int
@@ -97,26 +124,39 @@ final class NetworkingTests: XCTestCase {
     }
 
     func testGetMockUser() {
-        let expectation = self.expectation(description: "test request")
-        var paths = #file.components(separatedBy: "/")
-        paths.removeLast(2)
-        paths.append(contentsOf: ["data", "mockUser.json"])
-        let filePath = paths.joined(separator: "/")
-        
-        HttpClient.default.send(URL(fileURLWithPath: filePath)) { (result: Result<User, Error>) in
-            do {
-                let result = try result.get()
-                XCTAssert(result.id == 1)
-                XCTAssert(result.name == "Jack")
-                expectation.fulfill()
-            } catch let error {
-                XCTFail(error.localizedDescription)
+        self.expectation { (expectation) in
+            let filePath = dataPath() / "mockUser.json"
+            HttpClient.default.send(URL(fileURLWithPath: filePath)) { (result: Result<User, Error>) in
+                do {
+                    let result = try result.get()
+                    XCTAssert(result.id == 1)
+                    XCTAssert(result.name == "Jack")
+                    expectation.fulfill()
+                } catch let error {
+                    XCTFail(error.localizedDescription)
+                }
             }
         }
-        self.waitForExpectations(timeout: 30) { (error) in
-            
+    }
+    
+    #if canImport(UIKit)
+    
+    func testDownloadImage() {
+        self.expectation { expectation in
+            let imagePath = dataPath() / "cat.jpg"
+            print(imagePath)
+            HttpClient.default.send(URL(fileURLWithPath: imagePath)) { (result: Result<UIImage, Error>) in
+                do {
+                    try result.get()
+                    expectation.fulfill()
+                } catch let error {
+                    XCTFail(error.localizedDescription)
+                }
+            }
         }
     }
+    
+    #endif
 
     static var allTests = [
         ("testRequest1", testSendAndReceiveRequest1),

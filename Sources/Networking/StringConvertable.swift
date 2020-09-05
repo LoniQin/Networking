@@ -15,7 +15,7 @@ public protocol StringConvetable {
 extension String: StringConvetable {
     
     public func toString() -> String {
-        return self
+        self
     }
     
 }
