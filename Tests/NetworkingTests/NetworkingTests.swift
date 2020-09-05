@@ -3,6 +3,11 @@ import XCTest
 
 final class NetworkingTests: XCTestCase {
 
+    struct User: JSONCodable {
+        let id: Int
+        let name: String
+    }
+    
     func testSendAndReceiveRequest1() {
         let expectation = self.expectation(description: "test request")
         HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<Data,Error>) in
@@ -90,25 +95,7 @@ final class NetworkingTests: XCTestCase {
         }
         
     }
-    
-    func testJSONCodable() {
-        
-        struct User: JSONCodable {
-            let name: String
-        }
-        
-        let data = """
-        
-        """.data(using: .utf8)!
-        do {
-            let user = try User.toResponse(with: data)
-            print(user)
-        } catch let error {
-            print(error)
-        }
-        
-    }
-    
+
     func testGetMockUser() {
         let expectation = self.expectation(description: "test request")
         var paths = #file.components(separatedBy: "/")
@@ -116,10 +103,6 @@ final class NetworkingTests: XCTestCase {
         paths.append(contentsOf: ["data", "mockUser.json"])
         let filePath = paths.joined(separator: "/")
         
-        struct User: JSONCodable {
-            let id: Int
-            let name: String
-        }
         HttpClient.default.send(URL(fileURLWithPath: filePath)) { (result: Result<User, Error>) in
             do {
                 let result = try result.get()
@@ -138,5 +121,9 @@ final class NetworkingTests: XCTestCase {
     static var allTests = [
         ("testRequest1", testSendAndReceiveRequest1),
         ("testRequest2", testSendAndReceiveRequest2),
+        ("testHttpClientWithHttpRequest", testHttpClientWithHttpRequest),
+        ("testHttpClientWithURLAndURLRequest", testHttpClientWithURLAndURLRequest),
+        ("testHttpClientWithURL", testHttpClientWithURL),
+        ("testGetMockUser", testGetMockUser)
     ]
 }
