@@ -174,6 +174,26 @@ final class NetworkingTests: XCTestCase {
             XCTAssertEqual(urlRequest.allHTTPHeaderFields, ["Content-Type": "application/json"])
             XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.example.com/user/signup")
             XCTAssertEqual(urlRequest.httpMethod, "POST")
+            XCTAssertEqual(urlRequest.httpBody, try JSONSerialization.data(withJSONObject: ["phone": "123456", "password": "123456"], options: .prettyPrinted))
+        } catch let error {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func testForm() {
+        let form = Form(
+            domain: "https://www.example.com",
+            paths: ["user", "signup"],
+            items: [
+                .init(key: "phone", value: .string("123456")),
+                .init(key: "password", value: .string("123456")),
+                .init(key: "text", value: .data(data: Data(), contentType: .text_plain, fileName: "aaa.txt"))
+        ])
+        do {
+            let request = try form.toURLRequest()
+            XCTAssertEqual(request.url?.absoluteString, "https://www.example.com/user/signup")
+            let contentType = request.value(forHTTPHeaderField: "Content-Type")
+            XCTAssertEqual(contentType?.hasPrefix("multipart/form-data;"), true)
         } catch let error {
             XCTFail(error.localizedDescription)
         }
@@ -206,6 +226,7 @@ final class NetworkingTests: XCTestCase {
         ("testHttpClientWithURL", testHttpClientWithURL),
         ("testDataConvertable", testDataConvertable),
         ("testHttpRequest", testHttpRequest),
+        ("testForm", testForm),
         ("testGetMockUser", testGetMockUser),
     ]
 }
