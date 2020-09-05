@@ -1,12 +1,12 @@
 //
-//  FormData.swift
+//  Form.swift
 //
 //
 //  Created by lonnie on 2020/2/9.
 //
 import Foundation
 
-public struct FormData: RequestConvertable  {
+public struct Form: RequestConvertable  {
     
     public enum Value {
         

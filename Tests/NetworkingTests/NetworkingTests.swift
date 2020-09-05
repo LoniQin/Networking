@@ -131,11 +131,51 @@ final class NetworkingTests: XCTestCase {
                     let result = try result.get()
                     XCTAssert(result.id == 1)
                     XCTAssert(result.name == "Jack")
+                    let data = try result.toData()
+                    XCTAssert(data.count > 0)
                     expectation.fulfill()
                 } catch let error {
                     XCTFail(error.localizedDescription)
                 }
             }
+        }
+    }
+    
+    func testDataConvertable() {
+        let data = Data()
+        XCTAssertEqual(try data.toData(), data)
+    }
+    
+    func testHttpRequest() {
+        var request = HttpRequest(
+            domain: "https://www.example.com",
+            paths: ["user", "login"],
+            method: .get,
+            query: ["phone": "123456", "password": "123456"],
+            header: ["Content-Type": "application/json"]
+        )
+        do {
+            let urlRequest = try request.toURLRequest()
+            XCTAssertEqual(urlRequest.allHTTPHeaderFields, ["Content-Type": "application/json"])
+            XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.example.com/user/login?password=123456&phone=123456")
+            XCTAssertEqual(urlRequest.httpMethod, "GET")
+        } catch let error {
+            XCTFail(error.localizedDescription)
+        }
+        request = HttpRequest(
+            domain: "https://www.example.com",
+            paths: ["user", "signup"],
+            method: .post,
+            body: ["phone": "123456", "password": "123456"],
+            header: ["Content-Type": "application/json"]
+        )
+        do {
+            let urlRequest = try request.toURLRequest()
+            XCTAssertEqual(urlRequest.allHTTPHeaderFields, ["Content-Type": "application/json"])
+            XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.example.com/user/signup")
+            XCTAssertEqual(urlRequest.httpMethod, "POST")
+        } catch let error {
+            XCTFail(error.localizedDescription)
         }
     }
     
@@ -147,7 +187,7 @@ final class NetworkingTests: XCTestCase {
             print(imagePath)
             HttpClient.default.send(URL(fileURLWithPath: imagePath)) { (result: Result<UIImage, Error>) in
                 do {
-                    try result.get()
+                    _ = try result.get()
                     expectation.fulfill()
                 } catch let error {
                     XCTFail(error.localizedDescription)
@@ -164,6 +204,8 @@ final class NetworkingTests: XCTestCase {
         ("testHttpClientWithHttpRequest", testHttpClientWithHttpRequest),
         ("testHttpClientWithURLAndURLRequest", testHttpClientWithURLAndURLRequest),
         ("testHttpClientWithURL", testHttpClientWithURL),
-        ("testGetMockUser", testGetMockUser)
+        ("testDataConvertable", testDataConvertable),
+        ("testHttpRequest", testHttpRequest),
+        ("testGetMockUser", testGetMockUser),
     ]
 }

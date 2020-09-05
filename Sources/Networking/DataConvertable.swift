@@ -22,3 +22,10 @@ extension Data: DataConvertable {
     
 }
 
+extension Dictionary: DataConvertable where Key: Codable, Value: Codable {
+    
+    public func toData() throws -> Data {
+        try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
+    }
+    
+}

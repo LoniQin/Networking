@@ -36,7 +36,7 @@ dependencies: [
  * `String`
  * `URL`
  * `URLRequest`
- * `FormData`
+ * `Form`
  * `HttpRequest`
  
  ### Types confirms to `ResponseConvertable`
