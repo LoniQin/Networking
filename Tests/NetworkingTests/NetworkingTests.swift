@@ -174,7 +174,10 @@ final class NetworkingTests: XCTestCase {
             XCTAssertEqual(urlRequest.allHTTPHeaderFields, ["Content-Type": "application/json"])
             XCTAssertEqual(urlRequest.url?.absoluteString, "https://www.example.com/user/signup")
             XCTAssertEqual(urlRequest.httpMethod, "POST")
-            XCTAssertEqual(urlRequest.httpBody, try JSONSerialization.data(withJSONObject: ["phone": "123456", "password": "123456"], options: .prettyPrinted))
+            let value = try JSONSerialization.jsonObject(with: urlRequest.httpBody!, options: .allowFragments)
+            if let dic = value as? [String: String] {
+                XCTAssertEqual(dic, ["phone": "123456", "password": "123456"])
+            }
         } catch let error {
             XCTFail(error.localizedDescription)
         }

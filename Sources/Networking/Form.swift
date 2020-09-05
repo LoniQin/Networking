@@ -53,20 +53,20 @@ public struct Form: RequestConvertable  {
         var req = URLRequest(url: url)
         let boundary = UUID().uuidString
         var data = Data()
-        data.append("--\(boundary)\(Self.seperator)".data(using: .utf8)!)
+        try data.append("--\(boundary)\(Self.seperator)".utf8Data())
         for item in self.items {
-            data.append("Content-Disposition:form-data; name=\"\(item.key)\"".data(using: .utf8)!)
+            try data.append("Content-Disposition:form-data; name=\"\(item.key)\"".utf8Data())
             switch item.value {
             case .string(let value):
-                data.append("\(Self.seperator)\(Self.seperator)\(value)".data(using: .utf8)!)
+                try data.append("\(Self.seperator)\(Self.seperator)\(value)".utf8Data())
             case .data(let d, let contentType, let filename):
-                data.append("; filename=\"\(filename)\"\(Self.seperator)".data(using: .utf8)!)
-                data.append("\(Self.kContentType): \(contentType.rawValue)\(Self.seperator)\(Self.seperator)".data(using: .utf8)!)
+                try data.append("; filename=\"\(filename)\"\(Self.seperator)".utf8Data())
+                try data.append("\(Self.kContentType): \(contentType.rawValue)\(Self.seperator)\(Self.seperator)".utf8Data())
                 data.append(d)
-                data.append(Self.seperator.data(using: .utf8)!)
+                try data.append(Self.seperator.utf8Data())
             }
         }
-        data.append("--\(boundary)--\(Self.seperator)".data(using: .utf8)!)
+        try data.append("--\(boundary)--\(Self.seperator)".utf8Data())
         req.httpMethod = "POST"
         req.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: Self.kContentType)
         req.httpBody = data
