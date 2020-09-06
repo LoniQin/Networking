@@ -1,5 +1,5 @@
 //
-//  NetworkManager.swift
+//  HttpClient.swift
 //  
 //
 //  Created by Lonnie on 13/1/2020.
@@ -18,32 +18,29 @@ public class HttpClient: Requestable {
         self.session = session
         self.queue = queue
     }
-    
-    var tasks: [UUID: URLSessionTask] = [:]
 
     public func send<T: ResponseConvertable>(
         _ request: RequestConvertable,
         completion: @escaping (Result<T, Error>)->Void
-    ) {
-        let requestID = UUID()
+    ) -> URLSessionTaskProtocol? {
         do {
             let task = session.dataTask(with: try request.toURLRequest()) { [weak self] data, response, error in
-                self?.tasks.removeValue(forKey: requestID)
+                guard let data = data else {
+                    self?.dispatch(completion: completion, result: .failure(error ?? NetworkingError.unknownError))
+                    return
+                }
                 do {
-                    if let data = data {
-                        let response = try T.toResponse(with: data)
-                        self?.dispatch(completion: completion, result: .success(response))
-                    } else {
-                        self?.dispatch(completion: completion, result: .failure(error ?? NetworkingError.unknownError))
-                    }
+                    let response = try T.toResponse(with: data)
+                    self?.dispatch(completion: completion, result: .success(response))
                 } catch let error {
                     self?.dispatch(completion: completion, result: .failure(error))
                 }
             }
             task.resume()
-            tasks[requestID] = task
+            return task
         } catch let error {
             dispatch(completion: completion, result: .failure(error))
+            return nil
         }
     }
     

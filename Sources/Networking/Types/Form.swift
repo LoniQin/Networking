@@ -22,7 +22,7 @@ public struct Form: RequestConvertable  {
         
         public let value: Value
         
-        public init(key: String , value: Value) {
+        public init(key: String, value: Value) {
             self.key = key
             self.value = value
         }
