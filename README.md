@@ -46,7 +46,7 @@ dependencies: [
  * `JSONCodable`
  * `UIImage`
  
-Request this README.md and convert to Data using a `String`, `URL`, `URLRequet` that can all convert to `URLRequet`:
+Request this README.md and convert to Data using a `String`, `URL`, `URLRequest` that can all convert to `URLRequet`:
 ```swift
 HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<Data, Error>) in
     switch result {
