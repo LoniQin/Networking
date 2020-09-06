@@ -58,7 +58,7 @@ HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md
 }
 ```
 
-You can use `URL` and `URLRequest` object to start a request:
+Use `URL` and `URLRequest` object to start a request:
 ```swift
 HttpClient.default.send(URL(string: "https://github.com/LoniQin/Crypto/blob/master/README.md")!) { (result: Result<Data, Error>) in
     switch result {
@@ -78,7 +78,7 @@ HttpClient.default.send(URLRequest(url: URL(string: "https://github.com/LoniQin/
 }
 ```
 
-You can use `HttpRequest` to start a request:
+Use `HttpRequest` to start a request:
 ```swift
 let request = HttpRequest(domain: "https://github.com", paths: ["LoniQin", "Crypto", "blob", "master", "README.md"], method: .get)
 HttpClient.default.send(request) { (result: Result<String, Error>) in
@@ -91,10 +91,10 @@ HttpClient.default.send(request) { (result: Result<String, Error>) in
 }
 ```
 
-You can also request a local image file and convert it to **UIImage**
+
+Request an **UIImage**
 ```swift
-let imagePath = dataPath() + "cat.jpg"
-HttpClient.default.send(URL(fileURLWithPath: imagePath)) { (result: Result<UIImage, Error>) in
+HttpClient.default.send("https://raw.githubusercontent.com/LoniQin/Networking/master/Tests/mock_data/cat.jpg") { (result: Result<UIImage, Error>) in
     do {
         _ = try result.get()
     } catch let error {
