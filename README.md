@@ -1,6 +1,6 @@
 # Networking
 
-This networking libaray can make sending http request and decoding response very easy.
+This Networking Library can make sending http request and decoding response very convenient.
 
 # Functions
 - [x] Http Client
@@ -17,6 +17,7 @@ dependencies: [
 ]
 ```
  In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add https://github.com/LoniQin/Networking.
+ []
  
  ## How to use
  The two important protocol are `RequestConvertable`, `ResponseConvertable`. Namely objects and structs that confirms to `RequestConvertable` can convert to URLRequest type, and that confirms to `ResponseConvertable` can convert from URLResponse to that specific type. 
@@ -46,7 +47,7 @@ dependencies: [
  * `JSONCodable`
  * `UIImage`
  
-Request this README.md and convert to Data using a `String`, `URL`, `URLRequest` that can all convert to `URLRequet`:
+Request a `Data` using `String`, `URL`, `URLRequest` that can all convert to `URLRequet`:
 ```swift
 HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<Data, Error>) in
     switch result {
@@ -75,7 +76,7 @@ HttpClient.default.send(URLRequest(url: URL(string: "https://github.com/LoniQin/
 }
 ```
 
-Start a request using `HttpRequest`:
+Request a `String` using `HttpRequest`:
 ```swift
 let request = HttpRequest(domain: "https://github.com", paths: ["LoniQin", "Crypto", "blob", "master", "README.md"], method: .get)
 HttpClient.default.send(request) { (result: Result<String, Error>) in
@@ -89,7 +90,7 @@ HttpClient.default.send(request) { (result: Result<String, Error>) in
 ```
 
 
-Request `UIImage`
+Request an `UIImage` from web server
 ```swift
 HttpClient.default.send("https://raw.githubusercontent.com/LoniQin/Networking/master/Tests/mock_data/cat.jpg") { (result: Result<UIImage, Error>) in
     do {
@@ -100,7 +101,7 @@ HttpClient.default.send("https://raw.githubusercontent.com/LoniQin/Networking/ma
 }
 ```
 
-Request `UIImage` from Local file system
+Request an `UIImage` from Local file system
 
 ```swift
 let imagePath = dataPath() / "cat.jpg"
