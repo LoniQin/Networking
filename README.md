@@ -48,7 +48,7 @@ dependencies: [
  
  You can request this README.md using this string that represets a link:
 ```swift
-HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<Data,Error>) in
+HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<Data, Error>) in
     switch result {
     case .failure(let error):
         print(error)
