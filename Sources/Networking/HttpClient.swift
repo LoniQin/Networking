@@ -19,6 +19,7 @@ public class HttpClient: Requestable {
         self.queue = queue
     }
 
+    @discardableResult
     public func send<T: ResponseConvertable>(
         _ request: RequestConvertable,
         completion: @escaping (Result<T, Error>)->Void
