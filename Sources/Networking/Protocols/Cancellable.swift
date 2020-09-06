@@ -8,7 +8,7 @@
 import Foundation
 public protocol Cancellable {
     
-    /// Cancel
+    /// Cancel the event
     func cancel()
     
 }

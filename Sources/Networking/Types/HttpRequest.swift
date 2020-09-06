@@ -20,7 +20,7 @@ public struct HttpRequest: RequestConvertable {
     
     public let body: DataConvertable?
     
-    public let header: [String: String]
+    public let header: HttpHeaderConvertable
     
     /// Init method
     /// - Parameters:
@@ -35,7 +35,7 @@ public struct HttpRequest: RequestConvertable {
          method: HttpMethod = .get,
          query: [String: String] = [:],
          body: DataConvertable? = nil,
-         header: [String: String] = [:]) {
+         header: HttpHeaderConvertable = [:]) {
         self.domain = domain
         self.paths = paths
         self.method = method
@@ -60,7 +60,7 @@ public struct HttpRequest: RequestConvertable {
         if let body = body {
             request.httpBody = try body.toData()
         }
-        request.allHTTPHeaderFields = header
+        request.allHTTPHeaderFields = header.toHttpHeader()
         return request
     }
     

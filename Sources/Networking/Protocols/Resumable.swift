@@ -7,8 +7,8 @@
 
 import Foundation
 public protocol Resumable {
-    
-    /// Resume
+     
+    /// Resume the event
     func resume()
     
 }

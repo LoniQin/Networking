@@ -7,13 +7,13 @@
 
 import Foundation
 
-fileprivate let jsonDecoder = JSONDecoder()
-
-fileprivate let jsonEncoder = JSONEncoder()
-
 public protocol JSON: Codable, ResponseConvertable, DataConvertable {
     
 }
+
+fileprivate let jsonDecoder = JSONDecoder()
+
+fileprivate let jsonEncoder = JSONEncoder()
 
 extension JSON  {
     

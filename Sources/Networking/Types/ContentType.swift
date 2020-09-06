@@ -9,9 +9,9 @@ import Foundation
 
 /// Content type
 public enum ContentType: String {
-    
+
     case json = "application/json"
-    
+
     case multipart_Form = "multipart/form-data"
     
     case text_plain = "text/plain"

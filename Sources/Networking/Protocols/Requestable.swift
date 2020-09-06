@@ -11,7 +11,7 @@ public protocol Requestable {
     
     /// Send request
     /// - Parameters:
-    ///   - request: request instance that can convert to URLRequest
+    ///   - request: instance that can convert to URLRequest
     ///   - completion: completion handler
     func send<T: ResponseConvertable>(
         _ request: RequestConvertable,
