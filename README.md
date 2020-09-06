@@ -46,7 +46,7 @@ dependencies: [
  * `JSONCodable`
  * `UIImage`
  
- You can request this README.md using this string that represets a link:
+Request this README.md using a link:
 ```swift
 HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<Data, Error>) in
     switch result {
@@ -58,7 +58,7 @@ HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md
 }
 ```
 
-Use `URL` and `URLRequest` object to start a request:
+Reqeust `Data` using `URL` and `URLRequest`
 ```swift
 HttpClient.default.send(URL(string: "https://github.com/LoniQin/Crypto/blob/master/README.md")!) { (result: Result<Data, Error>) in
     switch result {
@@ -78,7 +78,7 @@ HttpClient.default.send(URLRequest(url: URL(string: "https://github.com/LoniQin/
 }
 ```
 
-Use `HttpRequest` to start a request:
+Requst `String` using `HttpRequest`:
 ```swift
 let request = HttpRequest(domain: "https://github.com", paths: ["LoniQin", "Crypto", "blob", "master", "README.md"], method: .get)
 HttpClient.default.send(request) { (result: Result<String, Error>) in
@@ -92,7 +92,7 @@ HttpClient.default.send(request) { (result: Result<String, Error>) in
 ```
 
 
-Request an **UIImage**
+Request `UIImage`
 ```swift
 HttpClient.default.send("https://raw.githubusercontent.com/LoniQin/Networking/master/Tests/mock_data/cat.jpg") { (result: Result<UIImage, Error>) in
     do {
