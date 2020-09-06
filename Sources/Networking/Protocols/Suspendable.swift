@@ -7,6 +7,9 @@
 
 import Foundation
 public protocol Suspendable {
+    
+    /// Suspend the event
     func suspend()
+    
 }
  

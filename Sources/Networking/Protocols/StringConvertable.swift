@@ -8,6 +8,7 @@
 import Foundation
 public protocol StringConvetable {
     
+    /// Convert to String instance
     func toString() -> String
     
 }

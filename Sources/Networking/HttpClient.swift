@@ -14,6 +14,10 @@ public class HttpClient: Requestable {
     
     public let queue: DispatchQueue
     
+    /// Init method
+    /// - Parameters:
+    ///   - session: URLSession, default is shared
+    ///   - queue: Dispatch queue
     public init(session: URLSession = .shared, queue: DispatchQueue = .main) {
         self.session = session
         self.queue = queue

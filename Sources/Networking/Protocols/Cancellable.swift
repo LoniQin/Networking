@@ -7,5 +7,8 @@
 
 import Foundation
 public protocol Cancellable {
+    
+    /// Cancel
     func cancel()
+    
 }

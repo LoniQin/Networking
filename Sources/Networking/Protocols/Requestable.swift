@@ -9,6 +9,13 @@ import Foundation
 
 public protocol Requestable {
     
-    func send<T: ResponseConvertable>(_ request: RequestConvertable, completion: @escaping (Result<T, Error>)->Void) -> URLSessionTaskProtocol?
+    /// Send request
+    /// - Parameters:
+    ///   - request: request instance that can convert to URLRequest
+    ///   - completion: completion handler
+    func send<T: ResponseConvertable>(
+        _ request: RequestConvertable,
+        completion: @escaping (Result<T, Error>)->Void
+    ) -> URLSessionTaskProtocol?
     
 }

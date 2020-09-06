@@ -30,7 +30,7 @@ final class NetworkingTests: XCTestCase {
         }
     }
 
-    struct User: JSONCodable {
+    struct User: JSON {
         let id: Int
         let name: String
     }

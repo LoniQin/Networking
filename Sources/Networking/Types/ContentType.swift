@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Content type
 public enum ContentType: String {
     
     case json = "application/json"

@@ -8,6 +8,7 @@ import Foundation
 
 public protocol RequestConvertable {
     
+    /// Convert to URLRequest instance
     func toURLRequest() throws -> URLRequest
     
 }

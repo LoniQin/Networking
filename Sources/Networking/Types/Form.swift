@@ -6,6 +6,7 @@
 //
 import Foundation
 
+/// Form
 public struct Form: RequestConvertable  {
     
     public enum Value {

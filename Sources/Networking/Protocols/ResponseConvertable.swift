@@ -8,6 +8,8 @@ import Foundation
 
 public protocol ResponseConvertable {
     
+    /// Convert to Response data
+    /// - Parameter data: Data instance
     static func toResponse(with data: Data) throws -> Self
     
 }

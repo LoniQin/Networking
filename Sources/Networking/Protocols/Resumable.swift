@@ -7,5 +7,8 @@
 
 import Foundation
 public protocol Resumable {
+    
+    /// Resume
     func resume()
+    
 }

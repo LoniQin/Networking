@@ -9,6 +9,7 @@ import Foundation
 
 public protocol DataConvertable {
     
+    /// Convert to data
     func toData() throws -> Data
     
 }

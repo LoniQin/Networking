@@ -43,7 +43,7 @@ dependencies: [
  * `String`
  * `Data`
  * `URLRequest`
- * `JSONCodable`
+ * `JSON`
  * `UIImage`
  
 Request a `Data` using `String`, `URL`, `URLRequest` that can all convert to `URLRequet`:
@@ -113,10 +113,10 @@ HttpClient.default.send(URL(fileURLWithPath: imagePath)) { (result: Result<UIIma
 }
 ```
 
-You can define your own type that confirms to `JSONCodable`, to decode JSON data from web server.
+You can define your own type that confirms to `JSON`, to decode JSON data from web server.
 
 ```swift
-struct User: JSONCodable {
+struct User: JSON {
     let name: String
 }
 

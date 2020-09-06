@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Http request
 public struct HttpRequest: RequestConvertable {
     
     public let domain: StringConvetable
@@ -21,6 +22,14 @@ public struct HttpRequest: RequestConvertable {
     
     public let header: [String: String]
     
+    /// Init method
+    /// - Parameters:
+    ///   - domain: Domain
+    ///   - paths: paths
+    ///   - method: Http method
+    ///   - query: query params
+    ///   - body: Body params
+    ///   - header: Header params
     init(domain: StringConvetable,
          paths: [StringConvetable] = [],
          method: HttpMethod = .get,
