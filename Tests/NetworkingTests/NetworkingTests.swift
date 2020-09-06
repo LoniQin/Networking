@@ -17,7 +17,7 @@ final class NetworkingTests: XCTestCase {
     }
 
     func dataPath() -> String {
-        testPath() / "data"
+        testPath() / "mock_data"
     }
     
     func expectation(title: String = #function, timeout: TimeInterval = 30, block: (XCTestExpectation) -> Void) {
