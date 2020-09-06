@@ -44,6 +44,7 @@ dependencies: [
  * `Data`
  * `URLRequest`
  * `JSONCodable`
+ * `UIImage`
  
  You can request this README.md using this string that represets a link:
 ```swift
