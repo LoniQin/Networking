@@ -46,9 +46,9 @@ dependencies: [
  * `JSONCodable`
  * `UIImage`
  
- You can request this README.md using this string that represets a link:
+Request this README.md and convert to Data using a `String`, `URL`, `URLRequest` that can all convert to `URLRequet`:
 ```swift
-HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<Data,Error>) in
+HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<Data, Error>) in
     switch result {
     case .failure(let error):
         print(error)
@@ -56,10 +56,7 @@ HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md
         print(data)
     }
 }
-```
 
-You can use `URL` and `URLRequest` object to start a request:
-```swift
 HttpClient.default.send(URL(string: "https://github.com/LoniQin/Crypto/blob/master/README.md")!) { (result: Result<Data, Error>) in
     switch result {
     case .failure(let error):
@@ -78,7 +75,7 @@ HttpClient.default.send(URLRequest(url: URL(string: "https://github.com/LoniQin/
 }
 ```
 
-You may use `HttpRequest` to start a request:
+Start a request using `HttpRequest`:
 ```swift
 let request = HttpRequest(domain: "https://github.com", paths: ["LoniQin", "Crypto", "blob", "master", "README.md"], method: .get)
 HttpClient.default.send(request) { (result: Result<String, Error>) in
@@ -87,6 +84,31 @@ HttpClient.default.send(request) { (result: Result<String, Error>) in
         print(error)
     case .success(let data):
         print(data)
+    }
+}
+```
+
+
+Request `UIImage`
+```swift
+HttpClient.default.send("https://raw.githubusercontent.com/LoniQin/Networking/master/Tests/mock_data/cat.jpg") { (result: Result<UIImage, Error>) in
+    do {
+        _ = try result.get()
+    } catch let error {
+        print(error)
+    }
+}
+```
+
+Request `UIImage` from Local file system
+
+```swift
+let imagePath = dataPath() / "cat.jpg"
+HttpClient.default.send(URL(fileURLWithPath: imagePath)) { (result: Result<UIImage, Error>) in
+    do {
+        _ = try result.get()
+    } catch let error {
+        print(error)
     }
 }
 ```
@@ -107,4 +129,4 @@ HttpClient.default.send("https://raw.githubusercontent.com/LoniQin/Networking/ma
     }
 }
 ```
-**Of course, you can customize your own request and response data by confirming to `RequestConvertable` and `RequestConvertable`!.**
+
