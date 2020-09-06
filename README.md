@@ -46,7 +46,7 @@ dependencies: [
  * `JSONCodable`
  * `UIImage`
  
-Request this README.md and convert to Data using a `String`, `URL`, `URLRequet` that all represents a link:
+Request this README.md and convert to Data using a `String`, `URL`, `URLRequet` that can all convert to `URLRequet`:
 ```swift
 HttpClient.default.send("https://github.com/LoniQin/Crypto/blob/master/README.md") { (result: Result<Data, Error>) in
     switch result {
@@ -75,7 +75,7 @@ HttpClient.default.send(URLRequest(url: URL(string: "https://github.com/LoniQin/
 }
 ```
 
-Requst `String` using `HttpRequest`:
+Start a request using `HttpRequest`:
 ```swift
 let request = HttpRequest(domain: "https://github.com", paths: ["LoniQin", "Crypto", "blob", "master", "README.md"], method: .get)
 HttpClient.default.send(request) { (result: Result<String, Error>) in
@@ -92,6 +92,19 @@ HttpClient.default.send(request) { (result: Result<String, Error>) in
 Request `UIImage`
 ```swift
 HttpClient.default.send("https://raw.githubusercontent.com/LoniQin/Networking/master/Tests/mock_data/cat.jpg") { (result: Result<UIImage, Error>) in
+    do {
+        _ = try result.get()
+    } catch let error {
+        print(error)
+    }
+}
+```
+
+Request `UIImage` from Local file system
+
+```swift
+let imagePath = dataPath() / "cat.jpg"
+HttpClient.default.send(URL(fileURLWithPath: imagePath)) { (result: Result<UIImage, Error>) in
     do {
         _ = try result.get()
     } catch let error {
