@@ -78,7 +78,7 @@ HttpClient.default.send(URLRequest(url: URL(string: "https://github.com/LoniQin/
 }
 ```
 
-You may use `HttpRequest` to start a request:
+You can use `HttpRequest` to start a request:
 ```swift
 let request = HttpRequest(domain: "https://github.com", paths: ["LoniQin", "Crypto", "blob", "master", "README.md"], method: .get)
 HttpClient.default.send(request) { (result: Result<String, Error>) in
@@ -87,6 +87,18 @@ HttpClient.default.send(request) { (result: Result<String, Error>) in
         print(error)
     case .success(let data):
         print(data)
+    }
+}
+```
+
+You can also request a local image file and convert it to **UIImage**
+```swift
+let imagePath = dataPath() + "cat.jpg"
+HttpClient.default.send(URL(fileURLWithPath: imagePath)) { (result: Result<UIImage, Error>) in
+    do {
+        _ = try result.get()
+    } catch let error {
+        print(error)
     }
 }
 ```
@@ -107,4 +119,4 @@ HttpClient.default.send("https://raw.githubusercontent.com/LoniQin/Networking/ma
     }
 }
 ```
-**Of course, you can customize your own request and response data by confirming to `RequestConvertable` and `RequestConvertable`!.**
+
